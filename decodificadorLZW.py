@@ -26,3 +26,6 @@ class Decodificador():
             self.dic[self.dic_size] = b''.join([aux,chr(aux_c[0]).encode("utf-8")])
             self.dic_size = self.dic_size + 1
             aux = aux_c
+
+    def getCodigos(self):
+        return self.codigos

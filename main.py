@@ -6,12 +6,14 @@ import sys
 
 #Recebe o nome do arquivo também por parametro no CMD
 nomeComExtensao = sys.argv[1]
-option_redo = nomeComExtensao
+opcao = sys.argv[2].lower()
+
+
 #Separamos a extensão do arquivo de seu nome
 nome,extensao = leArquivo.nomeExt(nomeComExtensao)
-while(option_redo):
+while(opcao):
 	#Recebe como parametro do CMD se é compressão ou descompressão
-	if(sys.argv[2].lower() == 'c' || option_redo.lower() == 'c'):
+	if(opcao.lower() == 'c' ):
 		
 		#Transforma em bytes o que foi lido do arquivo
 		byte = leArquivo.leEmBytes(nomeComExtensao)
@@ -24,13 +26,22 @@ while(option_redo):
 		#Escreve o .LZW
 		leArquivo.escreveLzw(nome,str(len(cod.getCodigos())),cod.getCodigos())
 
-	elif(sys.argv[2].lower() == 'd' || option_redo.lower() == 'c'):
+		print(str(len(cod.getCodigos())))
 
+	elif(opcao.lower() == 'd'):
+		x = []
 		#Carrega as variáveis byte e path com o arquivo
-		#byte,path = 
-		leArquivo.leLzw(nome)#,str(len(Codificador.getCodigos())))
+		byte,path = leArquivo.leLzw(nome,str(len(cod.getCodigos())))
 		decod = Decodificador()
-		#decod.makeDecod()
+		#Separa os itens
+		for i in path:
+			x.extend(i)
+		#Faz a decodificação
+		print(x)
+		decod.makeDecod(x, x[0])
+
+
+		leArquivo.escreveTxt(nome,extensao,decod.getCodigos())
 	
-	option_redo	= input("REFAZER - Escolha C ou D - \nENCERRAR - 0 \n ------> ")
+	opcao = input("REFAZER - Escolha C ou D - \nENCERRAR - Ctrl+c \n ------> ")
 

@@ -21,12 +21,16 @@ class leArquivo:
             file.write(struct.pack(codigos+'i', *vetor))
 
     @staticmethod
-    def leLzw(outFile):
+    def leLzw(outFile, codigos):
+        path = []
         with open(outFile + ".LZW", "rb") as file:
             content = file.read()
-            print(content)
-            # byte = struct.unpack(codigos+'i', content)
-            # path.append(byte)
-            # print(path)
-            # return byte,path
-        
+            byte = struct.unpack(codigos+'i', content)
+            path.append(byte)
+            return byte,path
+    
+    @staticmethod
+    def escreveTxt(nome,extensao,codigos):
+        with open('desc'+nome+"."+extensao, 'wb') as out:
+            byte = b''.join(bytearray(i) for i in codigos)
+            out.write(byte)   
