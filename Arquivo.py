@@ -2,7 +2,7 @@ import pathlib
 from struct import pack
 import struct
 
-class leArquivo: 
+class Arquivo: 
     @staticmethod #Para utilizar sem instanciar
     def nomeExt(nome):
         return nome.split('.')
@@ -11,7 +11,7 @@ class leArquivo:
     def leEmBytes(nome):
         path = []
         for byte in pathlib.Path(nome).read_bytes(): 
-            byte = chr(byte).encode('utf8') #CHAR em UTF8
+            byte = chr(byte).encode('utf8') #CHAR em UTF8 para BYTE
             path.append(byte)
         return path
 

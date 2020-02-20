@@ -1,47 +1,47 @@
-#!/usr/bin/python3.6
+# -*- coding: utf-8 -*-
 from codificadorLZW import Codificador
 from decodificadorLZW import  Decodificador
-from Arquivo import leArquivo
-import sys
+from Arquivo import Arquivo
+
 
 #Recebe o nome do arquivo também por parametro no CMD
-nomeComExtensao = sys.argv[1]
-opcao = sys.argv[2].lower()
+nomeComExtensao = 'corpus16MB.txt'
+#nomeComExtensao = 'lorem.txt'
 
 
 #Separamos a extensão do arquivo de seu nome
-nome,extensao = leArquivo.nomeExt(nomeComExtensao)
-while(opcao):
-	#Recebe como parametro do CMD se é compressão ou descompressão
-	if(opcao.lower() == 'c' ):
+nome,extensao = Arquivo.nomeExt(nomeComExtensao)
+
+#Recebe como parametro do CMD se é compressão ou descompressão
 		
-		#Transforma em bytes o que foi lido do arquivo
-		byte = leArquivo.leEmBytes(nomeComExtensao)
-		#Instanciação do objeto cod
-		cod = Codificador()
-		#Executa o LZW
-		cod.makeCod(byte)
-		#Insere o tamanho
-		cod.insereTamanho()
-		#Escreve o .LZW
-		leArquivo.escreveLzw(nome,str(len(cod.getCodigos())),cod.getCodigos())
+#Transforma em bytes o que foi lido do arquivo
+byte = Arquivo.leEmBytes(nomeComExtensao)
+leu = byte
+#Instanciação do objeto cod
+cod = Codificador()
+#Executa o LZW
+cod.makeCod(byte)
 
-		print(str(len(cod.getCodigos())))
+var = cod.dic
+rav = cod.codigos
 
-	elif(opcao.lower() == 'd'):
-		x = []
-		#Carrega as variáveis byte e path com o arquivo
-		byte,path = leArquivo.leLzw(nome,str(len(cod.getCodigos())))
-		decod = Decodificador()
-		#Separa os itens
-		for i in path:
-			x.extend(i)
-		#Faz a decodificação
-		print(x)
-		decod.makeDecod(x, x[0])
+#Insere o tamanho
+cod.insereTamanho()
+#Escreve o .LZW
+Arquivo.escreveLzw(nome,str(len(cod.getCodigos())),cod.getCodigos())
+
+###########################DECODIFICADOR
+x = []
+#Carrega as variáveis byte e path com o arquivo
+byte,path = Arquivo.leLzw(nome,str(len(cod.getCodigos())))
+decod = Decodificador()
+#Separa os itens
+for i in path:
+	x.extend(i)
+#Faz a decodificação
+decod.makeDecod(x, x[0])
 
 
-		leArquivo.escreveTxt(nome,extensao,decod.getCodigos())
+Arquivo.escreveTxt(nome,extensao,decod.getCodigos())
 	
-	opcao = input("REFAZER - Escolha C ou D - \nENCERRAR - Ctrl+c \n ------> ")
 
