@@ -5,8 +5,9 @@ from Arquivo import Arquivo
 
 
 #Recebe o nome do arquivo também por parametro no CMD
-nomeComExtensao = 'corpus16MB.txt'
+#nomeComExtensao = 'corpus16MB.txt'
 #nomeComExtensao = 'lorem.txt'
+nomeComExtensao = 'mapa.mp4'
 
 
 #Separamos a extensão do arquivo de seu nome

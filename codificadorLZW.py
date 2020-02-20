@@ -4,14 +4,14 @@ import binascii
 
 class Codificador:
     def __init__(self):
-        self.k = 16
+        self.k = 8
         self.dic_size = 2**self.k
         self.dic = {}
         self.codigos = []
-
+        print(self.dic_size)
     def makeCod(self, path):
         for i in range(self.dic_size):
-            self.dic[chr(i).encode('utf-8')] = i
+            self.dic[chr(i).encode('utf-8', errors='surrogatepass')] = i
         aux = bytes('', encoding = "utf-8")
         for char in path:
             aux_c = b''.join([aux,char])

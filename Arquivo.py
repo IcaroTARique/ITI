@@ -34,3 +34,4 @@ class Arquivo:
         with open('desc'+nome+"."+extensao, 'wb') as out:
             byte = b''.join(bytearray(i) for i in codigos)
             out.write(byte)   
+            
